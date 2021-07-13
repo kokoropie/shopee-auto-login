@@ -1,0 +1,6 @@
+version: "3"
+
+services:
+  genshin-impact-helper:
+    environment:
+      COOKIES: 'COOKIE copied in the previous step'
