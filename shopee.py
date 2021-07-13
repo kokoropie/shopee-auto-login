@@ -53,7 +53,7 @@ class Sign(Base):
         except Exception as e:
             raise Exception(e)
 
-        retcode = response.get('code', 99999)
+        retcode = response.get('retcode', 99999)
         code = response['code']
         message_list.append(str(retcode))
         message_list.append(str(code))
