@@ -84,11 +84,11 @@ class Sign(Base):
             message_list.append("\n".join(response['msg']).join("\n"))
             return ''.join(str(v) for v in message_list)
 
-        coins = self.get_coin()
-        if coins: 
-            message['coins'] = coins.get('coins', 0)
-        else: 
-            message['coins'] = 0
+        # coins = self.get_coin()
+        # if coins: 
+        #     message['coins'] = coins.get('coins', 0)
+        # else: 
+        message['coins'] = 0
         message['increase_coins'] = response['data']['increase_coins']
         message['status'] = response['msg']
         message['userid'] = response['data']['userid']
