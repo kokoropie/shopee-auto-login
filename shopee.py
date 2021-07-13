@@ -60,12 +60,12 @@ class Sign(Base):
         # 0:      success
         if retcode != 0:
             message_list.append(response)
-            return ''.join(message_list)
+            return ''.join(str(v) for v in message_list)
         message['increase_coins'] = response['data']['increase_coins']
         message['status'] = response['msg']
         message_list.append(self.message.format(**message))
 
-        return ''.join(message_list)
+        return ''.join(str(v) for v in message_list)
 
     @property
     def message(self):
