@@ -19,7 +19,7 @@ class Base(object):
             'Referer': CONFIG.REFERER_URL,
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept': 'application/json',
-            'Cookie': self._cookie
+            'Cookie': self._cookie,
             'Content-Type': 'application/json',
             'content-length': '2',
             'x-api-source': 'pc',
