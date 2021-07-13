@@ -70,3 +70,11 @@ else:
     CONFIG = ProductionConfig()
 
 log.basicConfig(level=CONFIG.LOG_LEVEL)
+
+MESSAGE_TEMPLATE = '''
+    {today:#^28}
+    Xu tăng: {increase_coins}
+    Kết quả điểm danh: {status}
+    {end:#^28}'''
+
+CONFIG.MESSAGE_TEMPLATE = MESSAGE_TEMPLATE

@@ -36,14 +36,30 @@ class Sign(Base):
         header = super(Sign, self).get_header()
         return header
     def run(self):
+        message_list = []
         data = {}
+        message = {
+            'today': today,
+            'end': ''
+        }
         try:
             response = req.to_python(req.request(
                 'post', CONFIG.CHECKED_ID_URL, headers=self.get_header(),
                 data=json.dumps(data, ensure_ascii=False)).text)
         except Exception as e:
             raise Exception(e)
-        return ''
+
+        code = response.get('code', 99999)
+        message_list.append(code)
+        # 0:      success
+        if code != 0:
+            message_list.append(response)
+            return ''.join(message_list)
+        message['increase_coins'] = response['data']['increase_coins']
+        message['status'] = response['msg']
+        message_list.append(self.message.format(**message))
+
+        return ''.join(message_list)
 
 if __name__ == '__main__':
     log.info('Bắt đầu')
