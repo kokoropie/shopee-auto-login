@@ -10,6 +10,9 @@ class Base(object):
         if not isinstance(cookies, str):
             raise TypeError('%s want a %s but got %s' %
                             (self.__class__, type(__name__), type(cookies)))
+        if not isinstance(token, str):
+            raise TypeError('%s want a %s but got %s' %
+                            (self.__class__, type(__name__), type(token)))
         self._cookie = cookies
         self._token = token
 
@@ -35,6 +38,7 @@ class Sign(Base):
     def get_header(self):
         header = super(Sign, self).get_header()
         return header
+        
     def run(self):
         message_list = []
         data = {}
@@ -49,7 +53,8 @@ class Sign(Base):
         except Exception as e:
             raise Exception(e)
 
-        code = response.get('code', 99999)
+        #code = response.get('code', 99999)
+        code = response['code']
         message_list.append(code)
         # 0:      success
         if code != 0:
@@ -84,7 +89,7 @@ if __name__ == '__main__':
             msg_list.append(msg)
             success_num = success_num + 1
         except Exception as e:
-            msg = f'Tài khoản thứ {i + 1}:\n    {e}'
+            msg = f'Tài khoản thứ {i + 1}:\n{e}'
             msg_list.append(msg)
             fail_num = fail_num + 1
             log.error(msg)
