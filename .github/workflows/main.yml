@@ -1,4 +1,4 @@
-name: "Auto Checked in Shopee"
+name: "Auto Check in Shopee"
 
 on:
   schedule:
