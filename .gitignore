@@ -58,3 +58,4 @@ notebooks/
 
 # backup
 backup/*.txt
+test.py
