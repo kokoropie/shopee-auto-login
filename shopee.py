@@ -48,7 +48,7 @@ class Sign(Base):
         }
         try:
             response = req.to_python(req.request(
-                'post', CONFIG.CHECKED_ID_URL, headers=self.get_header(),
+                'post', CONFIG.CHECKED_IN_URL, headers=self.get_header(),
                 data=json.dumps(data, ensure_ascii=False)).text)
         except Exception as e:
             raise Exception(e)
@@ -72,7 +72,6 @@ class Sign(Base):
 
 if __name__ == '__main__':
     log.info('Bắt đầu')
-    msg_list = []
     ret = success_num = fail_num = 0
 
     OS_COOKIE = ''
@@ -84,14 +83,12 @@ if __name__ == '__main__':
     for i in range(len(cookie_list)):
         log.info(f'Chuẩn bị tài khoản thứ {i + 1} điểm danh...')
         csrftoken = cookie_list[i].split('csrftoken=')[1].split(';')[0]
-        msg_list.append(csrftoken)
         try:
             msg = f'Tài khoản thứ {i + 1}:{Sign(cookie_list[i], csrftoken).run()}'
-            msg_list.append(msg)
             success_num = success_num + 1
         except Exception as e:
+            log.info(csrftoken)
             msg = f'Tài khoản thứ {i + 1}:\n{e}'
-            msg_list.append(msg)
             fail_num = fail_num + 1
             log.error(msg)
             ret = -1
