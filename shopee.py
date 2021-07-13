@@ -53,18 +53,19 @@ class Sign(Base):
         except Exception as e:
             raise Exception(e)
 
-        #code = response.get('code', 99999)
+        retcode = response.get('code', 99999)
         code = response['code']
-        message_list.append(code)
+        message_list.append(str(retcode))
+        message_list.append(str(code))
         # 0:      success
-        if code != 0:
+        if retcode != 0:
             message_list.append(response)
             return ''.join(message_list)
         message['increase_coins'] = response['data']['increase_coins']
         message['status'] = response['msg']
         message_list.append(self.message.format(**message))
 
-        return ''.join(str(v) for v in message_list)
+        return ''.join(message_list)
 
     @property
     def message(self):
