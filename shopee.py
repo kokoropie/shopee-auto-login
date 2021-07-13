@@ -61,6 +61,10 @@ class Sign(Base):
 
         return ''.join(message_list)
 
+    @property
+    def message(self):
+        return CONFIG.MESSAGE_TEMPLATE
+
 if __name__ == '__main__':
     log.info('Bắt đầu')
     msg_list = []
