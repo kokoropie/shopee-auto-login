@@ -76,9 +76,9 @@ log.basicConfig(level=CONFIG.LOG_LEVEL)
 MESSAGE_TEMPLATE = '''{today:#^28}
     ID: {userid}
     Tài khoản: {username}
-    Xu tăng: {increase_coins}
+    Xu tăng: {increase_coins:.0f}
     Kết quả điểm danh: {status}
-    Xu hiện tại: {coins}
-    {end:#^28}'''
+    Xu hiện tại: {coins:.0f}
+{end:#^28}'''
 
 CONFIG.MESSAGE_TEMPLATE = MESSAGE_TEMPLATE

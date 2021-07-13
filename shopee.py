@@ -2,6 +2,7 @@ import hashlib
 import json
 import time
 import os
+from datetime import datetime
 
 from settings import log, CONFIG, req
 
@@ -65,9 +66,10 @@ class Sign(Base):
         return req.to_python(response)
 
     def run(self):
+        today = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
         message_list = []
         message = {
-            'today': '',
+            'today': today,
             'end': ''
         }
         try:
