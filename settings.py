@@ -18,7 +18,9 @@ log = logger = logging
 
 
 class _Config:
-    CHECKED_IN_URL = 'https://shopee.vn/mkt/coins/api/v2/checkin_new'
+    CHECK_IN_URL = 'https://shopee.vn/mkt/coins/api/v2/checkin_new'
+    COIN_URL = 'https://shopee.vn/mkt/coins/api/v1/cs/coins'
+    SETTING_URL = 'https://shopee.vn/mkt/coins/api/v2/settings'
     REFERER_URL = 'https://shopee.vn/shopee-coins'
     USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.67'
 
@@ -71,10 +73,12 @@ else:
 
 log.basicConfig(level=CONFIG.LOG_LEVEL)
 
-MESSAGE_TEMPLATE = '''
-    {today:#^28}
+MESSAGE_TEMPLATE = '''{today:#^28}
+    ID: {userid}
+    Tài khoản: {username}
     Xu tăng: {increase_coins}
     Kết quả điểm danh: {status}
+    Xu hiện tại: {coins}
     {end:#^28}'''
 
 CONFIG.MESSAGE_TEMPLATE = MESSAGE_TEMPLATE

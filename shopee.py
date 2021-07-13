@@ -38,6 +38,16 @@ class Sign(Base):
     def get_header(self):
         header = super(Sign, self).get_header()
         return header
+        
+    def get_coin(self):
+        coin_url = CONFIG.COIN_URL
+        try:
+            response = req.request(
+                'get', coin_url, headers=self.get_header()).text
+        except Exception as e:
+            raise Exception(e)
+
+        return req.to_python(response).get('coins', 0)
 
     def run(self):
         message_list = []
@@ -48,7 +58,7 @@ class Sign(Base):
         }
         try:
             response = req.to_python(req.request(
-                'post', CONFIG.CHECKED_IN_URL, headers=self.get_header(),
+                'post', CONFIG.CHECK_IN_URL, headers=self.get_header(),
                 data=json.dumps(data, ensure_ascii=False)).text)
         except Exception as e:
             raise Exception(e)
@@ -57,9 +67,13 @@ class Sign(Base):
         # 0:      success
         if code != 0:
             message_list.append(response)
+            message_list.append("\join".join(response['msg']).join("\n"))
             return ''.join(str(v) for v in message_list)
+        message['coins'] = self.get_coin()
         message['increase_coins'] = response['data']['increase_coins']
         message['status'] = response['msg']
+        message['userid'] = response['data']['userid']
+        message['username'] = response['data']['username']
         message_list.append(self.message.format(**message))
 
         return ''.join(str(v) for v in message_list)
@@ -82,7 +96,7 @@ if __name__ == '__main__':
         log.info(f'Chuẩn bị tài khoản thứ {i + 1} điểm danh...')
         csrftoken = cookie_list[i].split('csrftoken=')[1].split(';')[0]
         try:
-            msg = f'Tài khoản thứ {i + 1}:{Sign(cookie_list[i], csrftoken).run()}'
+            msg = f'Tài khoản thứ {i + 1}:\n{Sign(cookie_list[i], csrftoken).run()}'
             log.info(msg)
             success_num = success_num + 1
         except Exception as e:
