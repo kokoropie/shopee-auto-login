@@ -38,7 +38,7 @@ class Sign(Base):
     def get_header(self):
         header = super(Sign, self).get_header()
         return header
-        
+
     def run(self):
         message_list = []
         data = {}
@@ -83,8 +83,9 @@ if __name__ == '__main__':
     cookie_list = OS_COOKIE.split('#')
     for i in range(len(cookie_list)):
         log.info(f'Chuẩn bị tài khoản thứ {i + 1} điểm danh...')
+        csrftoken = cookie_list[i].split('csrftoken=')[1].split(';')[0]
+        msg_list.append(csrftoken)
         try:
-            csrftoken = cookie_list[i].split('csrftoken=')[1].split(';')[0]
             msg = f'Tài khoản thứ {i + 1}:{Sign(cookie_list[i], csrftoken).run()}'
             msg_list.append(msg)
             success_num = success_num + 1
