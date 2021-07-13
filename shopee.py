@@ -32,7 +32,7 @@ class Base(object):
         return header
 
     def get_header_2(self):
-        header = {
+        header_2 = {
             'User-Agent': CONFIG.USER_AGENT,
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept': '*/*',
@@ -40,7 +40,7 @@ class Base(object):
             'x-api-source': 'pc',
             'x-shopee-language': 'vi'
         }
-        return header
+        return header_2
 
 class Sign(Base):
     def __init__(self, cookies: str = None, token: str = None):
@@ -51,8 +51,8 @@ class Sign(Base):
         return header
 
     def get_header_2(self):
-        header = super(Sign, self).get_header_2()
-        return header
+        header_2 = super(Sign, self).get_header_2()
+        return header_2
 
     def get_coin(self):
         coin_url = CONFIG.COIN_URL
@@ -84,11 +84,11 @@ class Sign(Base):
             message_list.append("\n".join(response['msg']).join("\n"))
             return ''.join(str(v) for v in message_list)
 
-        # coins = self.get_coin()
-        # if coins: 
-        #     message['coins'] = coins.get('coins', 0)
-        # else: 
-        message['coins'] = 0
+        coins = self.get_coin()
+        if coins: 
+            message['coins'] = coins.get('coins', 0)
+        else: 
+            message['coins'] = 0
         message['increase_coins'] = response['data']['increase_coins']
         message['status'] = response['msg']
         message['userid'] = response['data']['userid']

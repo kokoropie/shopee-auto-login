@@ -19,7 +19,7 @@ log = logger = logging
 
 class _Config:
     CHECK_IN_URL = 'https://shopee.vn/mkt/coins/api/v2/checkin_new'
-    COIN_URL = 'https://shopee.vn/mkt/coins/api/v1/cs/coins'
+    COIN_URL = 'https://shopee.vn/mkt/coins/api/v1/cs/coins/'
     SETTING_URL = 'https://shopee.vn/mkt/coins/api/v2/settings'
     REFERER_URL = 'https://shopee.vn/shopee-coins'
     USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Edg/91.0.864.67'
