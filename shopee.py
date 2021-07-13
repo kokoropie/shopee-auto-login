@@ -64,7 +64,7 @@ class Sign(Base):
         message['status'] = response['msg']
         message_list.append(self.message.format(**message))
 
-        return ''.join(message_list)
+        return ''.join(str(v) for v in message_list)
 
     @property
     def message(self):
@@ -87,7 +87,6 @@ if __name__ == '__main__':
             msg = f'Tài khoản thứ {i + 1}:{Sign(cookie_list[i], csrftoken).run()}'
             success_num = success_num + 1
         except Exception as e:
-            log.info(csrftoken)
             msg = f'Tài khoản thứ {i + 1}:\n{e}'
             fail_num = fail_num + 1
             log.error(msg)
