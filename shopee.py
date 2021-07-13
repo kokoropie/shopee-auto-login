@@ -39,7 +39,7 @@ class Sign(Base):
         message_list = []
         data = {}
         message = {
-            'today': today,
+            'today': '',
             'end': ''
         }
         try:
