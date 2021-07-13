@@ -31,6 +31,18 @@ class Base(object):
         }
         return header
 
+    def get_header_2(self):
+        header = {
+            'User-Agent': CONFIG.USER_AGENT,
+            'Referer': CONFIG.REFERER_URL,
+            'Accept-Encoding': 'gzip, deflate, br',
+            'Accept': '*/*',
+            'Cookie': self._cookie,
+            'x-api-source': 'pc',
+            'x-shopee-language': 'vi'
+        }
+        return header
+
 class Sign(Base):
     def __init__(self, cookies: str = None, token: str = None):
         super(Sign, self).__init__(cookies, token)
@@ -38,12 +50,16 @@ class Sign(Base):
     def get_header(self):
         header = super(Sign, self).get_header()
         return header
-        
+
+    def get_header_2(self):
+        header = super(Sign, self).get_header_2()
+        return header
+
     def get_coin(self):
         coin_url = CONFIG.COIN_URL
         try:
             response = req.request(
-                'get', coin_url, headers=self.get_header()).text
+                'get', coin_url, headers=self.get_header_2()).text
         except Exception as e:
             raise Exception(e)
 
