@@ -85,6 +85,7 @@ if __name__ == '__main__':
         csrftoken = cookie_list[i].split('csrftoken=')[1].split(';')[0]
         try:
             msg = f'Tài khoản thứ {i + 1}:{Sign(cookie_list[i], csrftoken).run()}'
+            log.info(msg)
             success_num = success_num + 1
         except Exception as e:
             msg = f'Tài khoản thứ {i + 1}:\n{e}'
