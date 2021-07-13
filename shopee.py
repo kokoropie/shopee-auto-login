@@ -46,6 +46,10 @@ class Sign(Base):
         return ''
 
 if __name__ == '__main__':
+    log.info('Bắt đầu')
+    msg_list = []
+    ret = success_num = fail_num = 0
+
     OS_COOKIE = ''
 
     if os.environ.get('OS_COOKIE', '') != '':
