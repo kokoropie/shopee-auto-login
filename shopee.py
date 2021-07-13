@@ -34,7 +34,6 @@ class Base(object):
     def get_header_2(self):
         header = {
             'User-Agent': CONFIG.USER_AGENT,
-            'Referer': CONFIG.REFERER_URL,
             'Accept-Encoding': 'gzip, deflate, br',
             'Accept': '*/*',
             'Cookie': self._cookie,
@@ -63,11 +62,10 @@ class Sign(Base):
         except Exception as e:
             raise Exception(e)
 
-        return req.to_python(response).get('coins', 0)
+        return req.to_python(response)
 
     def run(self):
         message_list = []
-        data = {}
         message = {
             'today': '',
             'end': ''
@@ -75,7 +73,7 @@ class Sign(Base):
         try:
             response = req.to_python(req.request(
                 'post', CONFIG.CHECK_IN_URL, headers=self.get_header(),
-                data=json.dumps(data, ensure_ascii=False)).text)
+                data=json.dumps({}, ensure_ascii=False)).text)
         except Exception as e:
             raise Exception(e)
 
@@ -83,9 +81,14 @@ class Sign(Base):
         # 0:      success
         if code != 0:
             message_list.append(response)
-            message_list.append("\join".join(response['msg']).join("\n"))
+            message_list.append("\n".join(response['msg']).join("\n"))
             return ''.join(str(v) for v in message_list)
-        message['coins'] = self.get_coin()
+
+        coins = self.get_coin()
+        if coins: 
+            message['coins'] = coins.get('coins', 0)
+        else: 
+            message['coins'] = 0
         message['increase_coins'] = response['data']['increase_coins']
         message['status'] = response['msg']
         message['userid'] = response['data']['userid']
