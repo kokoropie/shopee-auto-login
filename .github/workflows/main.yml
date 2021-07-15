@@ -2,7 +2,7 @@ name: "Auto Check in Shopee"
 
 on:
   schedule:
-    - cron: "55 16 * * *"  # scheduled at 00:00 (GMT+7) everyday
+    - cron: "0 17 * * *"  # scheduled at 00:00 (GMT+7) everyday
   workflow_dispatch:
 
 env:
